@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Daftar PR</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+
+body{
+
+background:linear-gradient(135deg,#061322,#0b2747,#134d7a);
+
+padding:20px;
+
+color:white;
+
+}
+
+
+
+.container{
+
+max-width:850px;
+
+margin:auto;
+
+}
+
+
+
+h1{
+
+text-align:center;
+
+color:#00e5ff;
+
+margin-bottom:30px;
+
+}
+
+
+
+.admin-area{
+
+display:flex;
+
+gap:15px;
+
+margin-bottom:30px;
+
+}
+
+
+
+button{
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+
+button:hover{
+
+transform:scale(1.03);
+
+}
+
+
+
+#editBtn{
+
+display:none;
+
+flex:1;
+
+background:#00c853;
+
+color:white;
+
+}
+
+
+
+#editBtn:hover{
+
+background:#009624;
+
+}
+
+
+
+#saveBtn{
+
+display:none;
+
+flex:1;
+
+background:#757575;
+
+color:white;
+
+}
+
+
+
+#saveBtn:hover{
+
+background:#616161;
+
+}
+
+
+
+.card{
+
+background:#162b46;
+
+border-left:5px solid #00e5ff;
+
+padding:20px;
+
+border-radius:15px;
+
+margin-bottom:20px;
+
+box-shadow:0 0 10px rgba(0,229,255,.3);
+
+}
+
+
+
+.card h2{
+
+color:#00e5ff;
+
+margin-bottom:10px;
+
+}
+
+
+
+.card p{
+
+line-height:25px;
+
+}
+
+
+
+.kembali{
+
+width:100%;
+
+margin-top:10px;
+
+background:#00e5ff;
+
+color:black;
+
+}
+
+
+
+/* NOTIF */
+
+.toast{
+
+position:fixed;
+
+bottom:30px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:#00c853;
+
+color:white;
+
+padding:15px 25px;
+
+border-radius:15px;
+
+font-weight:bold;
+
+opacity:0;
+
+transition:.4s;
+
+z-index:999;
+
+}
+
+
+
+.toast.show{
+
+opacity:1;
+
+bottom:50px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+📚 Daftar PR
+</h1>
+
+
+
+<div class="admin-area">
+
+<button id="editBtn" onclick="editMode()">
+
+✏️ Edit
+
+</button>
+
+
+<button id="saveBtn" onclick="simpanData()">
+
+💾 Simpan
+
+</button>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 contenteditable="false">
+Matematika
+</h2>
+
+<p contenteditable="false">
+Halaman 45 Nomor 1-10
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 contenteditable="false">
+Bahasa Indonesia
+</h2>
+
+<p contenteditable="false">
+Membuat Teks Negosiasi
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 contenteditable="false">
+Informatika
+</h2>
+
+<p contenteditable="false">
+Membuat Flowchart
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 contenteditable="false">
+Matematika
+</h2>
+
+<p contenteditable="false">
+Halaman 45 Nomor 1-10
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 contenteditable="false">
+Matematika
+</h2>
+
+<p contenteditable="false">
+Halaman 45 Nomor 1-10
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2 contenteditable="false">
+Matematika
+</h2>
+
+<p contenteditable="false">
+Halaman 45 Nomor 1-10
+</p>
+
+</div>
+
+
+
+
+<button class="kembali" onclick="window.location='index.html'">
+
+⬅ Kembali ke Beranda
+
+</button>
+
+
+
+</div>
+
+
+
+<div id="toast" class="toast"></div>
+
+
+
+
+<script>
+
+
+function notif(pesan){
+
+let toast=document.getElementById("toast");
+
+toast.innerHTML=pesan;
+
+toast.className="toast show";
+
+
+setTimeout(function(){
+
+toast.className="toast";
+
+},2500);
+
+}
+
+
+
+
+
+function editMode(){
+
+
+document.querySelectorAll("h2,p").forEach(function(item){
+
+
+item.contentEditable=true;
+
+
+});
+
+
+notif("✏️ Mode Edit Aktif");
+
+
+}
+
+
+
+
+
+function simpanData(){
+
+
+let data=[];
+
+
+document.querySelectorAll("h2,p").forEach(function(item){
+
+
+item.contentEditable=false;
+
+
+data.push(item.innerHTML);
+
+
+});
+
+
+
+localStorage.setItem(
+"pr",
+JSON.stringify(data)
+);
+
+
+
+notif("💾 Data berhasil disimpan");
+
+
+}
+
+
+
+
+window.onload=function(){
+
+
+
+if(localStorage.getItem("adminLogin")=="true"){
+
+
+document.getElementById("editBtn").style.display="block";
+
+document.getElementById("saveBtn").style.display="block";
+
+
+}
+
+
+
+let data=JSON.parse(
+localStorage.getItem("pr")
+);
+
+
+
+if(data){
+
+
+document.querySelectorAll("h2,p").forEach(function(item,index){
+
+
+item.innerHTML=data[index];
+
+
+});
+
+
+}
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
